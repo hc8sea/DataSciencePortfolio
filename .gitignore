@@ -1,5 +1,11 @@
-/venv
-/__pycache__
-/.cache
-*.swp
-/credentials.txt
+# ignore virtual environment folder
+venv/
+
+# ignore Python cache files
+__pycache__/
+
+# ignore compiled Python files
+*.pyc
+
+# ignore files and folders that contain credentials
+credentials.*
