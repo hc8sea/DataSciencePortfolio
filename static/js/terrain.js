@@ -20,25 +20,19 @@ let renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.getElementById("terrain").appendChild(renderer.domElement);
 
-// Create Displacement Map
-let textureLoader = new THREE.TextureLoader();
-let displacementMap = textureLoader.load('/static/img/image.jpg');
+const loader = new THREE.TextureLoader()
+const texture = loader.load('/static/img/texture.png')
+const height = loader.load('/static/img/image.jpg')
 
-displacementMap.wrapS = displacementMap.wrapT = THREE.RepeatWrapping;
-displacementMap.repeat.set(1, 1);
-
-let textureLoader2 = new THREE.TextureLoader();
-let bumpMap = textureLoader2.load('/static/img/bump.jpg');
-
-let material = new THREE.MeshStandardMaterial({
-    color: 'gray'
-
-
-});
+const material = new THREE.MeshStandardMaterial({
+    color: 'red',
+    map: texture,
+    displacementMap: height,
+})
 
 
 // Create a terrain
-let geometry = new THREE.PlaneBufferGeometry(3,3,64,64);
+let geometry = new THREE.PlaneGeometry(5, 5, 64, 64);
 
 // var material = new THREE.MeshBasicMaterial({
 //   color: 0xffff00,
