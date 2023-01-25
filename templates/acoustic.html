@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+	  <form method='post'>
+        <label for='input4'>Insert a track:</label>
+        <input type='text' id='input4' name='input4'>
+        <input type="submit" value="Submit">
+
+        <p>{{ prediction }}</p>
+        
+    </form>
+    <p>{{ summary }}</p>
+
+    {% endblock %}

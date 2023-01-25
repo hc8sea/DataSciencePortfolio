@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+	  <form method='post'>    
+     
+	  <p>{% for line in partial_log %}
+      <p>{{ line }}</p>
+    {% endfor %}</p>
+
+    <p id="paragraph">
+      {% for word in words %}
+          <span class="word">{{ word }}</span>
+      {% endfor %}
+    </p>
+
+    <!-- <script>
+      let words = document.querySelectorAll('.word');
+      let i = 0;
+
+      setInterval(function() {
+          words[i].style.display = 'inline';
+          i++;
+      }, 500);
+  </script>
+
+  <style>
+      .word {
+          display: none;
+      }
+  </style> -->
+
+
+
+<label for='teste'>Teste</label>
+<input type='text' id='input_text' name='input_text'>
+<input type="submit" value="Submit">  
+
+
+{% endblock %}

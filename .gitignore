@@ -9,3 +9,7 @@ __pycache__/
 
 # ignore files and folders that contain credentials
 credentials.*
+
+# ignore temporary files created by VIM
+*.swo
+*.swp

@@ -1,0 +1,83 @@
+<!--
+      todo: loading bars
+
+    -->
+{% extends "base.html" %} {% block content %}
+<div class="dashboards_section" , id="dashboards">
+  <div class="work_item">
+    <div class="work_item_inner medium-homepages-link">
+      <div class="work_title text_ani_wrap">
+        <div class="stagger_body">
+          <form method="post" id="todo-form" name="submit1">
+            <label for="todo-form">Dashboards</label><br />
+            <input type="text" name="todo" id="todo" value="Olivia"/>
+            <button type="submit" value="Submit1" id="submit1">submit</button>
+          </form>
+        </div>
+      </div>
+
+      <div id="chart0" class="chart0"></div>
+    </div>
+  </div>
+</div>
+<div class="recommender_section">
+  <div class="work_item">
+    <div class="work_item_inner medium-homepages-link">
+      <div class="work_title text_ani_wrap">
+        <div class="stagger_body">
+          <!-- <form action="/recommender"> -->
+            <label for="input3_name">Recommendations:</label><br />
+            <div id="myContainer" class="myContainer"></div>
+          <!-- </form> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="gpt3_section">
+  <div class="work_item">
+    <div class="work_item_inner medium-homepages-link">
+      <div class="work_title text_ani_wrap">
+        <div class="stagger_body">
+          <form id ='submit3'>
+            <label for="input3">Composer:</label><br />
+            <div class="myContainer Container3" id="Container3">
+
+                <p id="partial_log"></p>
+                <p id="words"></p>                
+                  <label for='teste'>Teste</label>
+                  <input type='text' id='input3' name='input3'>
+                <input type="submit" value="Submit">
+                </form>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="neural_nets_section">
+  <div class="work_item">
+    <div class="work_item_inner medium-homepages-link">
+      <div class="work_title text_ani_wrap">
+        <div class="stagger_body">
+
+            <label for="input4">Melspec:</label><br />
+            <div class="myContainer Container4" id="Container4">
+            <form method='post' id="submit4">
+              <label for='input4'>Insert a track:</label>
+              <input type='text' id='input4' name='input4'>
+              <input type="submit" value="Submit">
+            
+              <div id="part4"></div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

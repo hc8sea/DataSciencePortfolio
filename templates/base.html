@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.0/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.0/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.0/ScrollToPlugin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r125/three.min.js"></script>
+    <script src="static/js/OBJLoader.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.js"
+      integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+      crossorigin="anonymous"
+    ></script>
+    <script src="static/js/main.js"></script>
+
+    <link rel="stylesheet" href="static/css/main.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="header">
+      <div class="title_wrapper">
+        <div class="title_inner">
+          <div class="title title_line01 text_ani_wrap">
+            <div class="stagger">H</div>
+          </div>
+          <div class="title title_line02 text_ani_wrap">
+            <div class="stagger">DS</div>
+          </div>
+        </div>
+      </div>
+      <div class="nav_wrapper">
+        <div>
+          <div
+            class="nav_button dashboards_button text_ani_wrap underline_trigger"
+          >
+            <div class="stagger">dashboards</div>
+            <div class="underline"></div>
+          </div>
+        </div>
+        <div>
+          <div
+            class="nav_button recommender_button text_ani_wrap underline_trigger"
+          >
+            <div class="stagger">recommender</div>
+            <div class="underline"></div>
+          </div>
+        </div>
+        <div>
+          <div class="nav_button gpt3_button text_ani_wrap underline_trigger">
+            <div class="stagger">open ai gpt3</div>
+            <div class="underline"></div>
+          </div>
+        </div>
+        <div>
+          <div
+            class="nav_button neural_nets_button text_ani_wrap underline_trigger"
+          >
+            <div class="stagger">neural nets</div>
+            <div class="underline"></div>
+          </div>
+        </div>
+        <div>
+          <div class="nav_button info_button text_ani_wrap underline_trigger">
+            <div class="stagger info-link">info</div>
+            <div class="underline"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% block content %}{% endblock %}
+  </body>
+</html>
