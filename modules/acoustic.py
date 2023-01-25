@@ -21,7 +21,7 @@ def name_to_url(input_name):
         print(track['preview_url'])
         return track['preview_url']
 
-def url_to_melspec(url):
+def url_to_melspec(url, n_mels):
 
 # Send a GET request to the URL
   response = requests.get(url)
@@ -32,9 +32,10 @@ def url_to_melspec(url):
       with open("file.mp3", "wb") as f:
           f.write(response.content)
           y, sr = librosa.load('file.mp3')
-          S = librosa.feature.melspectrogram(y=y, sr=sr, n_mels=128, fmax=8000)
+          S = librosa.feature.melspectrogram(y=y, sr=sr, n_mels=n_mels, fmax=8000)
           S_dB = librosa.power_to_db(S, ref=np.max)
-          return S_dB
+          width = S_dB.shape[1]
+          return S_dB, width
       os.remove('file.mp3')
       print("File downloaded successfully")
   else:

@@ -8,6 +8,7 @@ import plotly
 import plotly.express as px
 import plotly.graph_objects as go
 import tensorflow as tf
+import cv2
 
 from flask import Flask, render_template, request, send_file, jsonify
 from spotipy.oauth2 import SpotifyClientCredentials
@@ -24,10 +25,10 @@ top_tracks = []
 spotify = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials())
 
 #TODO progress bar
-#TODO ask for artist first
+#TODO artist then everything else
 #TODO style buttons
-#TODO
-#TODO
+#TODO output melspec
+#TODO 
 #TODO
 #TODO
 
@@ -100,11 +101,18 @@ def classifier():
     model = tf.keras.models.load_model('model')
     summary = model.summary()
     url = name_to_url(input_name)
-    mel = url_to_melspec(url)
-    mel = preprocess_mel(mel)
+    mel, width = url_to_melspec(url, 128)
+    mel_ = preprocess_mel(mel)
+    prediction = mel_to_prediction(mel_)
+    height = 512
+    mel2, width = url_to_melspec(url, height)
+    mel__ = 255*((mel2+80)/80)[:,:height] #to form a square
 
-    prediction = mel_to_prediction(mel)
-    return jsonify(prediction)
+    mel__ = cv2.cvtColor(mel__, cv2.COLOR_GRAY2RGBA).astype('uint8')
+
+    mel__ = json.dumps(mel__.tolist())
+    
+    return jsonify(string=prediction, array=mel__, height=height, width=width)
 
 @app.route('/nlp', methods=['GET','POST'])
 def nlp():

@@ -284,12 +284,27 @@ $(document).on("submit", "#submit4", function (e) {
 		body: JSON.stringify({'data': inputValue})
 	  })
 	  .then(response => response.json())
-	  .then((predict) => {
+	  .then((response) => {
 		let pred = document.createElement("div");
-		pred.textContent = predict;
+		pred.textContent = response.string;
 		let container4 = document.getElementById("Container4");
 		container4.appendChild(pred);
+    
+    // Example call
+    // const rgbData = [255, 0, 0, 0, 255, 0, 0, 0, 255];
+    let imgData = JSON.parse(response.array);
+    console.log(imgData.flat().flat());
+
+    rgbData = imgData.flat().flat();
+    const parent = document.getElementById('Container4');
+    let width = response.width;
+    let height = response.height;
+    createImageFromRGBData(rgbData, height, height, parent);
 	  })
+    .then(() => {
+      createGround();
+    })
+    
 });
 
 $(document).on("submit", "#submit3", function (e) {
@@ -339,10 +354,94 @@ $(document).on("submit", "#submit3", function (e) {
 	  })
 	  })
 
-// let words = document.querySelectorAll('.word');
-// let i = 0;
+    function createImageFromRGBData(rgbData, width, height, parent) {
+      // Create an empty canvas element
+      const canvas = document.createElement('canvas');
+  
+      // Set the canvas dimensions
+      canvas.width = width;
+      canvas.height = height;
+  
+      // Get the canvas context
+      const ctx = canvas.getContext('2d');
+  
+      // Create an ImageData object
+      const imageData = ctx.createImageData(canvas.width, canvas.height);
+  
+      // Get the data property of the ImageData object (this is a typed array)
+      const data = imageData.data;
+  
+      // Set the RGB data
+      for (let i = 0; i < data.length; i += 4) {
+          data[i] = rgbData[i];     // Red
+          data[i + 1] = rgbData[i+1];   // Green
+          data[i + 2] = rgbData[i+2];   // Blue
+          data[i + 3] = 255;      // Alpha (fully opaque)
+      }
+  
+      // Put the ImageData object onto the canvas
+      ctx.putImageData(imageData, 0, 0);
+  
+      // Create an image element
+      const img = document.createElement('img');
+  
+      // Set the src of the image to the data URL of the canvas
+      img.src = canvas.toDataURL();
+  
+      // Append the image element to the body of the page
+      parent.appendChild(img);
+  }
 
-// setInterval(function() {
-// 	words[i].style.display = 'inline';
-// 	i++;
-// }, 500);
+function createGround() {
+  const groundGeo = new THREE.PlaneGeometry(1000,1000, 32, 32);
+
+  let disMap = new THREE.TextureLoader()
+  // .setPath("../static/img")
+  .load("static\img\6.jpg");
+  
+
+  disMap.wrapS = disMap.wrapT = THREE.RepeatWrapping;
+  disMap.repeat.set(1, 1);
+
+const groundMat = new THREE.MeshStandardMaterial ({
+  color: 0x000000,
+  wireframe: true,
+  displacementMap: disMap,
+  displacementScale: 1,
+
+});
+
+
+
+// Create a scene
+const scene = new THREE.Scene();
+
+// Create a camera
+// const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+
+// Create a renderer
+// const renderer = new THREE.WebGLRenderer();
+// renderer.setSize( window.innerWidth, window.innerHeight );
+// document.body.appendChild( renderer.domElement );
+
+// Create your three.js object
+groundMesh = new THREE.Mesh(groundGeo, groundMat);
+scene.add(groundMesh);
+groundMesh.rotation.x = -Math.PI / 2;
+groundMesh.position.y = -0.5;
+
+// Position the camera
+// camera.position.z = 5;
+
+// Render the scene
+// renderer.render( scene, camera );
+
+}
+
+
+
+
+
+
+
+
