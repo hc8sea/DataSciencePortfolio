@@ -22,6 +22,13 @@ body {
 	height: 100%
 } */
 
+#progress-bar {
+	width: 0%;
+	height: 20px;
+	background-color: rgb(255, 85, 0);
+	transition: width 0.5s;
+  }
+
 .webgl
 {
     position: relative;

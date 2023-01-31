@@ -1,5 +1,8 @@
 {
   "devDependencies": {
     "three-orbit-controls": "^82.1.0"
+  },
+  "dependencies": {
+    "vue-progressbar": "^0.7.5"
   }
 }

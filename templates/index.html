@@ -10,13 +10,17 @@
         <div class="stagger_body">
           <form method="post" id="todo-form" name="submit1">
             <label for="todo-form">Dashboards</label><br />
-            <input type="text" name="todo" id="todo" value="Olivia"/>
+            <input type="text" name="todo" id="todo"/>
             <button type="submit" value="Submit1" id="submit1">submit</button>
           </form>
         </div>
       </div>
 
       <div id="chart0" class="chart0"></div>
+      <div id="app">
+        <progress-bar :value="progress" color="blue"></progress-bar>
+      </div>
+
     </div>
   </div>
 </div>
@@ -27,7 +31,13 @@
         <div class="stagger_body">
           <!-- <form action="/recommender"> -->
             <label for="input3_name">Recommendations:</label><br />
+            
             <div id="myContainer" class="myContainer"></div>
+            <div id="progress-bar"></div>
+            
+
+
+
           <!-- </form> -->
         </div>
       </div>

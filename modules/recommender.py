@@ -1,6 +1,7 @@
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 from typing import Dict, Text
+from tqdm import tqdm
 
 import numpy as np
 import tensorflow as tf
@@ -34,11 +35,13 @@ class MovieLensModel(tfrs.Model):
 
     return self.task(user_embeddings, movie_embeddings)
 
-def create_dataset(input_name, selected_tracks):        
+
+def create_dataset(input_name, selected_tracks, bar):        
     artist_results = spotify.search(q='artist:' + input_name, type='artist')
     artist_id = artist_results['artists']['items'][0]['id']
     print(artist_id)
     top_tracks = [track['name'] for track in spotify.artist_top_tracks(artist_id)['tracks']]
+
     limit=50
     playlists = spotify.search(q='playlist:' + input_name, type='playlist', limit=limit)['playlists']['items']
     _ratings = []
@@ -46,12 +49,19 @@ def create_dataset(input_name, selected_tracks):
     __tracks = [track for track in selected_tracks]
     _tracks = [tf.constant(track) for track in __tracks]
     _user = 1
-    for playlist in playlists:
+    
+    # if len(bar) > 0:
+    #   bar = []
+    for i, playlist in enumerate(tqdm(playlists)):
+      
+      # bar.append(i)
+      bar[0] = (i+1)/limit
       if not playlist['collaborative']:
         id = playlist['id']
         user = playlist['owner']['id']
         tracklist = spotify.playlist_tracks(id)['items']
-        for track in tracklist:
+        for j, track in enumerate(tracklist):
+          # bar[0] += (j/len(tracklist))/limit
           try:
 
             if track['track']['artists'][0]['id'] == artist_id:
@@ -63,7 +73,7 @@ def create_dataset(input_name, selected_tracks):
         _user += 1
     dataset = tf.data.Dataset.from_tensor_slices({'user_id':_users,'movie_title':_tracks})
     mdataset = tf.data.Dataset.from_tensor_slices({'movie_title':list(set(__tracks))})
-
+    bar[0] = 0
 
     ratings = dataset.map(lambda x: {
     "movie_title": x["movie_title"],
@@ -115,11 +125,9 @@ def create_model(ratings, movies, selected_tracks):
     lst = selected_tracks
     lst = list(map(lambda x: bytes(x,'utf-8'), lst))
     # lst = [bytes(i, 'utf-8') for i in lst]
-    filtered_titles = [r for r in res if r not in lst]
-
-
-
-    return(f"Top 3 recommendations for you: {filtered_titles}")
+    filtered_titles = [r.decode() for r in res if r not in lst]
+    print(type(filtered_titles[0]))
+    return(f"Top recommendations for you: {', '.join(filtered_titles)}")
 
 
 

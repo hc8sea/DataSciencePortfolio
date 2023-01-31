@@ -1,5 +1,6 @@
 import os
 import json
+import time
 
 import spotipy
 import openai
@@ -13,6 +14,7 @@ import cv2
 from flask import Flask, render_template, request, send_file, jsonify
 from spotipy.oauth2 import SpotifyClientCredentials
 
+from tqdm import tqdm
 
 import credentials
 from modules.recommender import create_dataset, create_model
@@ -35,8 +37,15 @@ spotify = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials())
 
 app = Flask(__name__)
 
+global bar
+bar = [0]
+@app.route("/get_progress")
+def get_progress():
+    return jsonify(progress = bar)
+
 @app.route('/', methods=['GET','POST'])
 def index():
+
     global full_log
     full_log = []
     if request.method == "POST":
@@ -46,6 +55,9 @@ def index():
             global input_name #why?
             input_name = request.form.get("todo")
             global graphJSON
+
+
+
             # graphJSON = run_script(input_name)
         else:
             print('2there is')
@@ -55,6 +67,23 @@ def index():
 
     return render_template('index.html')
 
+@app.route('/predef1')
+def predef1():
+    with open('radiohead.json', 'r') as openfile:
+        jsonfile = json.load(openfile)
+    return jsonfile
+
+@app.route("/fetch_data")
+def fetch_data():
+  data = []
+  for i in range(100):
+    # Generate data
+    data.append(i)
+    time.sleep(0.5)
+  return jsonify(data)
+
+
+
 @app.route('/process_data', methods=['POST'])
 def process_data():
     data = request.get_json()
@@ -62,15 +91,29 @@ def process_data():
     print(selected_tracks)
     app.selected_tracks = selected_tracks
 
-    ratings, movies = create_dataset(input_name, selected_tracks)
+    try:
+        ratings, movies = create_dataset(input_name, selected_tracks, bar)
+    except:
+        ratings, movies = create_dataset('Radiohead', selected_tracks, bar)
+        
     recommendation = create_model(ratings, movies, selected_tracks)
 
-    return jsonify(recommendation)
+    return jsonify(rec=recommendation)
 
 @app.route('/data')
 def data():
     _ = run_script(input_name)
     return _
+
+@app.route('/rec0')
+def rec0():
+    artist_results = spotify.search(q='artist:' + 'Radiohead', type='artist')
+    artist_id = artist_results['artists']['items'][0]['id']
+    global top_tracks
+    top_tracks = [
+        track['name'] for track in spotify.artist_top_tracks(artist_id)['tracks']
+        ]
+    return jsonify(top_tracks)
 
 @app.route('/rec')
 def rec():
@@ -82,16 +125,16 @@ def rec():
         ]
     return jsonify(top_tracks)
 
-@app.route('/rec2', methods=['POST','GET'])
-def rec2():
-    # selected_tracks = request.form.getlist('checkboxes')
-    app.selected_tracks = selected_tracks
-    print(selected_tracks)
-    print(request.form)
-    ratings, movies = create_dataset(input_name, selected_tracks)
-    recommendation = create_model(ratings, movies, selected_tracks)
+# @app.route('/rec2', methods=['POST','GET'])
+# def rec2():
+#     # selected_tracks = request.form.getlist('checkboxes')
+#     app.selected_tracks = selected_tracks
+#     print(selected_tracks)
+#     print(request.form)
+#     ratings, movies = create_dataset(input_name, selected_tracks)
+#     recommendation = create_model(ratings, movies, selected_tracks)
 
-    return jsonify(recommendation)
+#     return jsonify(recommendation)
 
 @app.route('/classifier', methods=['GET','POST'])
 def classifier():
@@ -186,4 +229,4 @@ def acoustic():
         return render_template('acoustic.html')
   
 if __name__ == '__main__':
-    app.run()
+    app.run(threaded=True)

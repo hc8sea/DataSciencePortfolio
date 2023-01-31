@@ -2,7 +2,12 @@
 # yarn lockfile v1
 
 
-three-orbit-controls@^82.1.0:
-  version "82.1.0"
-  resolved "https://registry.yarnpkg.com/three-orbit-controls/-/three-orbit-controls-82.1.0.tgz#11a7f33d0a20ecec98f098b37780f6537374fab4"
-  integrity sha512-hIWxGoHqIbeq0S2lA14m9VRzo7SamKKVJ9mKMT/rdh0Qa3nV5Umvhlx4zsHl0Y6jLKVZhjatJfeD/K08Tr/g4A==
+"three-orbit-controls@^82.1.0":
+  "integrity" "sha512-hIWxGoHqIbeq0S2lA14m9VRzo7SamKKVJ9mKMT/rdh0Qa3nV5Umvhlx4zsHl0Y6jLKVZhjatJfeD/K08Tr/g4A=="
+  "resolved" "https://registry.npmjs.org/three-orbit-controls/-/three-orbit-controls-82.1.0.tgz"
+  "version" "82.1.0"
+
+"vue-progressbar@^0.7.5":
+  "integrity" "sha512-VeNG/inMsFbvdCTS7lJ1gjDAKSUZdqkhW9gS1tb0we1rqFKxR+BCEiVUgw5C84vODKb14M2GWHTw0WVdpoVg6g=="
+  "resolved" "https://registry.npmjs.org/vue-progressbar/-/vue-progressbar-0.7.5.tgz"
+  "version" "0.7.5"
