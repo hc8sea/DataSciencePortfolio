@@ -30,6 +30,7 @@ function updateProgressBar() {
       // Check if the progress has reached the target
       if (progress >= 1) {
         clearTimeout(timeoutId);
+        progressBar.style.width = 0;
       } else {
         timeoutId = setTimeout(updateProgressBar, animationSpeed);
       }
@@ -101,9 +102,9 @@ function createTrackList(route) {
 
       form.appendChild(getrec);
 
-      let pbar = document.createElement("div");
-      pbar.id = "progress-bar";
-      form.appendChild(pbar);
+      // let pbar = document.createElement("div");
+      // pbar.id = "progress-bar";
+      // form.appendChild(pbar);
     });
 }
 
