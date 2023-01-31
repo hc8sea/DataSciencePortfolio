@@ -1,3 +1,9 @@
+function createForm() {}
+
+// function destroyForm() {
+
+// }
+
 function submitForm() {
   var checkedNames = [];
   var checkboxes = document.getElementsByName("name");
@@ -24,7 +30,7 @@ function updateProgressBar() {
 
       animationSpeed = Math.max(animationSpeed, 200);
 
-      progressBar.style.width = `${100*progress[0]}%`;
+      progressBar.style.width = `${100 * progress[0]}%`;
       lastProgress = progress[0];
 
       // Check if the progress has reached the target
@@ -94,13 +100,15 @@ function createTrackList(route) {
         // Append the list item element to the container element
         ul.appendChild(li);
       }
+      let br = document.createElement("br")
       let getrec = document.createElement("button");
       getrec.type = "submit";
       getrec.value = "Submit2";
-      getrec.textContent = "Submit";
+      getrec.textContent = "Discover new music";
       // getrec.onclick="submitForm()";
-
+      form.appendChild(br)
       form.appendChild(getrec);
+      
 
       // let pbar = document.createElement("div");
       // pbar.id = "progress-bar";
@@ -270,6 +278,45 @@ window.addEventListener("pageshow", function () {
       });
     });
   });
+
+  // var btn = document.querySelector(".changingDivs");
+
+  // // Add a click event listener to the button
+  // btn.addEventListener("click", function () {
+  //   btn.innerHTML = "";
+  //   // Create form element
+  //   var form = document.createElement("form");
+  //   form.method = "post";
+  //   form.id = "todo-form";
+  //   form.name = "submit1";
+
+  //   // Create label element
+  //   var label = document.createElement("label");
+  //   label.htmlFor = "todo-form";
+  //   label.innerHTML = "Dashboards" + "<br />";
+
+  //   // Create input element
+  //   var input = document.createElement("input");
+  //   input.type = "text";
+  //   input.name = "todo";
+  //   input.id = "todo";
+
+  //   // Create button element
+  //   var button = document.createElement("button");
+  //   button.type = "submit";
+  //   button.value = "Submit1";
+  //   button.id = "submit1";
+  //   button.innerHTML = "submit";
+
+  //   // Append elements to form
+  //   form.appendChild(label);
+  //   form.appendChild(input);
+  //   form.appendChild(button);
+
+  //   // Append form to body
+
+  //   btn.appendChild(form);
+  // });
 }); /*close on pageview load*/
 
 // Dashboard + Recommendation List
@@ -364,9 +411,12 @@ $(document).on("submit", "#submit4", function (e) {
     .then((response) => {
       let pred = document.createElement("div");
       pred.textContent = response.string;
-      let container4 = document.getElementById("Container4");
+      let container4 = document.getElementById("neuralPrediction");
+      container4.innerHTML = ""
       container4.appendChild(pred);
-
+      let explanation = document.createElement("p")
+      explanation.textContent = "The conclusion was reached by the model through utilization of the melspectrogram below."
+      container4.appendChild(explanation)
       // Example call
       // const rgbData = [255, 0, 0, 0, 255, 0, 0, 0, 255];
       let imgData = JSON.parse(response.array);
@@ -378,7 +428,7 @@ $(document).on("submit", "#submit4", function (e) {
       console.log(x);
       console.log(y);
 
-      const parent = document.getElementById("Container4");
+      const parent = document.getElementById("melSpectogram");
       let width = response.width;
       let height = response.height;
       melSpec(rgbData, 512, 512);
@@ -469,49 +519,50 @@ function createImageFromRGBData(rgbData, width, height, parent) {
   img.src = canvas.toDataURL();
 
   // Append the image element to the body of the page
+  parent.innerHTML = ''
   parent.appendChild(img);
 }
 
-function createGround() {
-  const groundGeo = new THREE.PlaneGeometry(1000, 1000, 32, 32);
+// function createGround() {
+//   const groundGeo = new THREE.PlaneGeometry(1000, 1000, 32, 32);
 
-  let disMap = new THREE.TextureLoader()
-    // .setPath("../static/img")
-    .load("staticimg\6.jpg");
+//   let disMap = new THREE.TextureLoader()
+//     // .setPath("../static/img")
+//     .load("staticimg\6.jpg");
 
-  disMap.wrapS = disMap.wrapT = THREE.RepeatWrapping;
-  disMap.repeat.set(1, 1);
+//   disMap.wrapS = disMap.wrapT = THREE.RepeatWrapping;
+//   disMap.repeat.set(1, 1);
 
-  const groundMat = new THREE.MeshStandardMaterial({
-    color: 0x000000,
-    wireframe: true,
-    displacementMap: disMap,
-    displacementScale: 1,
-  });
+//   const groundMat = new THREE.MeshStandardMaterial({
+//     color: 0x000000,
+//     wireframe: true,
+//     displacementMap: disMap,
+//     displacementScale: 1,
+//   });
 
-  // Create a scene
-  const scene = new THREE.Scene();
+//   // Create a scene
+//   const scene = new THREE.Scene();
 
-  // Create a camera
-  // const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+//   // Create a camera
+//   // const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
-  // Create a renderer
-  // const renderer = new THREE.WebGLRenderer();
-  // renderer.setSize( window.innerWidth, window.innerHeight );
-  // document.body.appendChild( renderer.domElement );
+//   // Create a renderer
+//   // const renderer = new THREE.WebGLRenderer();
+//   // renderer.setSize( window.innerWidth, window.innerHeight );
+//   // document.body.appendChild( renderer.domElement );
 
-  // Create your three.js object
-  groundMesh = new THREE.Mesh(groundGeo, groundMat);
-  scene.add(groundMesh);
-  groundMesh.rotation.x = -Math.PI / 2;
-  groundMesh.position.y = -0.5;
+//   // Create your three.js object
+//   groundMesh = new THREE.Mesh(groundGeo, groundMat);
+//   scene.add(groundMesh);
+//   groundMesh.rotation.x = -Math.PI / 2;
+//   groundMesh.position.y = -0.5;
 
-  // Position the camera
-  // camera.position.z = 5;
+//   // Position the camera
+//   // camera.position.z = 5;
 
-  // Render the scene
-  // renderer.render( scene, camera );
-}
+//   // Render the scene
+//   // renderer.render( scene, camera );
+// }
 
 function melSpec(rgbData, x, y) {
   // import './style.css'
@@ -544,7 +595,7 @@ function melSpec(rgbData, x, y) {
     color: "gray",
     map: texture,
     displacementMap: height,
-    displacementScale: 0.6,
+    displacementScale: 0.3,
     alphaMap: alpha,
     transparent: true,
     depthTest: false,
@@ -559,7 +610,7 @@ function melSpec(rgbData, x, y) {
   // Lights
 
   // const pointLight = new THREE.PointLight('#507D01', 2)
-  const pointLight = new THREE.PointLight("#000000", 2);
+  const pointLight = new THREE.PointLight("#507D01", 2);
   pointLight.position.x = 2;
   pointLight.position.y = 3;
   pointLight.position.z = 4;
@@ -613,10 +664,12 @@ function melSpec(rgbData, x, y) {
    */
   const renderer = new THREE.WebGLRenderer({
     canvas: canvas,
+    // antialias: true,
   });
+
   renderer.setSize(sizes.width, sizes.height);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
+  // renderer.setPixelRatio(window.devicePixelRatio*2);
   renderer.setClearColor("#f4eae1");
 
   /**

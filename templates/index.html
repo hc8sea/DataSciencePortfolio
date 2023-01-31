@@ -3,15 +3,25 @@
 
     -->
 {% extends "base.html" %} {% block content %}
+
+<!-- <div class="intro">
+  <div class="intro_text">Analysis of Spotify data for Radiohead</div>
+  <div class="changingDivs" id="changingDivs">
+    <button id="generateDivsBtn">Change artist</button>
+  </div> -->
+</div>
 <div class="dashboards_section" , id="dashboards">
   <div class="work_item">
     <div class="work_item_inner medium-homepages-link">
       <div class="work_title text_ani_wrap">
         <div class="stagger_body">
+          <p>Dashboards</p>
           <form method="post" id="todo-form" name="submit1">
-            <label for="todo-form">Dashboards</label><br />
+            <!-- <label for="todo-form">Dashboards</label><br/> -->
+            <p class="description">Discover in-depth insights across all radiohead albums.</p>
+            <p class="description">Expand your analysis to other artists for a broader perspective.</p>
             <input type="text" name="todo" id="todo"/>
-            <button type="submit" value="Submit1" id="submit1">submit</button>
+            <button type="submit" value="Submit1" id="submit1">search</button>
           </form>
         </div>
       </div>
@@ -29,8 +39,13 @@
     <div class="work_item_inner medium-homepages-link">
       <div class="work_title text_ani_wrap">
         <div class="stagger_body">
+          <p>Recommender</p>
+          <p class="description">Check your favorite tracks and get recommendations.</p>
+          <p class="description">To change this list, select another artist in the previous section.</p>
+          <p></p>
+          <!-- <p class="description">We're using TensorFlow Recommenders.</p> -->
           <!-- <form action="/recommender"> -->
-            <label for="input3_name">Recommendations:</label><br />
+            <!-- <label for="input3_name">Recommendations:</label><br /> -->
             
             <div id="myContainer" class="myContainer"></div>
             
@@ -44,14 +59,19 @@
     </div>
   </div>
 </div>
-
+<br>
 <div class="gpt3_section">
   <div class="work_item">
     <div class="work_item_inner medium-homepages-link">
       <div class="work_title text_ani_wrap">
         <div class="stagger_body">
+          <p>Fine-tuned GPT-3</p>
+          <p class="description">Type anything and see what happens.</p>
+          <p class="description">I've used The Strokes' lyrics to fine tune the GPT3 Model</p>
+          <p class="description">So you can have a little nonsense Chat with Julian Casablancas</p>
+          <p></p>
           <form id ='submit3'>
-            <label for="input3">Composer:</label><br />
+            <!-- <label for="input3">Composer:</label><br /> -->
             <div class="myContainer Container3" id="Container3">
 
                 <p id="partial_log"></p>
@@ -67,20 +87,28 @@
     </div>
   </div>
 </div>
-
+<br>
 <div class="neural_nets_section">
   <div class="work_item">
     <div class="work_item_inner medium-homepages-link">
       <div class="work_title text_ani_wrap">
         <div class="stagger_body">
-
-            <label for="input4">Melspec:</label><br />
+          <p>Convolutional Neural Network</p>
+          <p class="description">Prompt the name of any song.</p>
+          <p class="description">The model will guess if the song is acoustic and print it's melspectogram</p>
+          <br>
+          <p class="description"></p>
+            <!-- <label for="input4">Melspec:</label><br /> -->
             <div class="myContainer Container4" id="Container4">
             <form method='post' id="submit4">
               <label for='input4'>Insert a track:</label>
               <input type='text' id='input4' name='input4'>
               <input type="submit" value="Submit">
-            
+              <br>
+              <br>
+              <div id="neuralPrediction"></div>
+              <br><br>
+              <div id="melSpectogram"></div>
               <div id="part4"></div>
               <!-- <div id="terrain"></div> -->
               <canvas class="webgl"></canvas>

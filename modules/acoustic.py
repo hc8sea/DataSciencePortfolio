@@ -17,9 +17,13 @@ def name_to_url(input_name):
         items = results['tracks']['items']
         track_id = items[0]['id']
         track = spotify.track(track_id)
+        global track_found
+        track_found = items[0]['name']
+        global artist_found
+        artist_found = items[0]['artists'][0]['name']
         print(f'''\nFirst result is "{items[0]['name']}" by "{items[0]['artists'][0]['name']}". The ID is: {track_id}''')
         print(track['preview_url'])
-        return track['preview_url']
+        return track['preview_url'], artist_found, track_found
 
 def url_to_melspec(url, n_mels):
 
@@ -58,9 +62,9 @@ def mel_to_prediction(mel):
     print(np.argmax(pred))
     result = mode([np.argmax(item) for item in pred])
     if result == 0:
-        return 'No'
+        return f'{track_found} by {artist_found} is not an acoustic song.'
     else:
-        return 'Yes'
+        return f'{track_found} by {artist_found} is actually an acoustic song!'
 
 def input_to_prediction(input_name):
     return f'prediction relativo ao {input_name}'

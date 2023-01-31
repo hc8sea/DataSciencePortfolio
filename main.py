@@ -26,10 +26,8 @@ top_tracks = []
 
 spotify = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials())
 
-#TODO progress bar
-#TODO artist then everything else
 #TODO style buttons
-#TODO output melspec
+#TODO pbar for everyone
 #TODO 
 #TODO
 #TODO
@@ -143,7 +141,7 @@ def classifier():
     prediction = input_to_prediction(input_name)
     model = tf.keras.models.load_model('model')
     summary = model.summary()
-    url = name_to_url(input_name)
+    url = name_to_url(input_name)[0]
     mel, width = url_to_melspec(url, 128)
     mel_ = preprocess_mel(mel)
     prediction = mel_to_prediction(mel_)
@@ -219,7 +217,7 @@ def acoustic():
         prediction = input_to_prediction(input_name)
         model = tf.keras.models.load_model('model')
         summary = model.summary()
-        url = name_to_url(input_name)
+        url = name_to_url(input_name)[0]
         mel = url_to_melspec(url)
         mel = preprocess_mel(mel)
 
