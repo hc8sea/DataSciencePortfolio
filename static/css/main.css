@@ -17,12 +17,35 @@ body {
 	box-sizing: border-box;
 }
 
+#spinner {
+	width: 20px;
+	height: 20px;
+	background-color: #000;
+	animation: blink 2s ease-in-out infinite;
+  }
+  
+  @keyframes blink {
+	50% {
+	  opacity: 0.1;
+	}
+  }
+
 /* canvas {
 	width: 100%;
 	height: 100%
 } */
 
 #progress-bar {
+	position: fixed;
+	width: 0%;
+	height: 5px;
+	background-color: rgb(255, 85, 0);
+	
+	transition: width 0.5s;
+	z-index: 2;
+  }
+
+#progress-bar2 {
 	position: fixed;
 	width: 0%;
 	height: 5px;

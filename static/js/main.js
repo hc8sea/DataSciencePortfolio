@@ -1,3 +1,5 @@
+
+
 function createForm() {}
 
 // function destroyForm() {
@@ -39,6 +41,31 @@ function updateProgressBar() {
         progressBar.style.width = 0;
       } else {
         timeoutId = setTimeout(updateProgressBar, animationSpeed);
+      }
+    });
+}
+
+function updateProgressBar2() {
+  const progressBar2 = document.getElementById("progress-bar2");
+
+  fetch("/get_progress2")
+    .then((response) => response.json())
+    .then((data) => {
+      let progress = data.progress;
+      console.log(progress);
+      let animationSpeed = Math.abs(progress[0] - lastProgress) * 10;
+
+      animationSpeed = Math.max(animationSpeed, 100);
+
+      progressBar2.style.width = `${100 * progress[0]}%`;
+      lastProgress = progress[0];
+
+      // Check if the progress has reached the target
+      if (progress >= 1) {
+        clearTimeout(timeoutId);
+        progressBar2.style.width = 0;
+      } else {
+        timeoutId = setTimeout(updateProgressBar2, animationSpeed);
       }
     });
 }
@@ -317,6 +344,8 @@ window.addEventListener("pageshow", function () {
 
   //   btn.appendChild(form);
   // });
+
+
 }); /*close on pageview load*/
 
 // Dashboard + Recommendation List
@@ -333,6 +362,8 @@ createTrackList("/rec0");
 $(document).on("submit", "#todo-form", function (e) {
   console.log("hello");
   e.preventDefault();
+  const progressBar2 = document.getElementById("progress-bar2");
+  updateProgressBar2();
   $.ajax({
     type: "POST",
     url: "/",
@@ -340,7 +371,8 @@ $(document).on("submit", "#todo-form", function (e) {
       todo: $("#todo").val(),
     },
     success: function () {
-      alert("saved");
+      
+
       fetch("/data")
         .then((response) => response.json())
         .then((graphs) => {
@@ -396,6 +428,7 @@ $(document).on("submit", "#submit2", function (e) {
 
 $(document).on("submit", "#submit4", function (e) {
   e.preventDefault(); // To prevent the form from submitting
+  spinner.style.display = 'block';
   console.log("hello4");
   let inputValue = $("#input4").val();
   console.log(inputValue); // To check the value in the console
@@ -407,8 +440,16 @@ $(document).on("submit", "#submit4", function (e) {
     },
     body: JSON.stringify({ data: inputValue }),
   })
-    .then((response) => response.json())
     .then((response) => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json()
+    })
+    .then((response) => {
+
+
+      spinner.style.display = 'none'
       let pred = document.createElement("div");
       pred.textContent = response.string;
       let container4 = document.getElementById("neuralPrediction");
@@ -431,10 +472,20 @@ $(document).on("submit", "#submit4", function (e) {
       const parent = document.getElementById("melSpectogram");
       let width = response.width;
       let height = response.height;
-      melSpec(rgbData, 512, 512);
+      // melSpec(rgbData, 512, 512);
       createImageFromRGBData(rgbData, height, height, parent);
     })
-    .then(() => {});
+    .catch((error) => {
+      spinner.style.display = 'none'
+      let errordiv = document.createElement("div");
+      errordiv.textContent = "Try another one, the artist blocked the audiofile :(";
+      let container4 = document.getElementById("neuralPrediction");
+      container4.appendChild(errordiv);
+      // Handle the error
+      console.error('Error:', error);
+    });
+
+;
 });
 
 // NLP

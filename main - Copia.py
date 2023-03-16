@@ -148,7 +148,6 @@ def classifier():
     model = tf.keras.models.load_model('model')
     summary = model.summary()
     url = name_to_url(input_name)[0]
-    print(url)
     mel, width = url_to_melspec(url, 128)
     mel_ = preprocess_mel(mel)
     prediction = mel_to_prediction(mel_)

@@ -9,7 +9,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 
 from tqdm import tqdm
-from alive_progress import alive_bar
+#from alive_progress import alive_bar
 
 from spotipy.oauth2 import SpotifyClientCredentials
 
@@ -21,7 +21,7 @@ full_log = []
 
 spotify = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials())
 
-def run_script(input_name):
+def run_script(input_name, bar):
     artist_results = spotify.search(q='artist:' + input_name, type='artist')
     artist_id = artist_results['artists']['items'][0]['id']
     artist_name = artist_results['artists']['items'][0]['name']
@@ -42,6 +42,7 @@ def run_script(input_name):
     progress = 0
 
     for i, key in enumerate(tqdm(albums_dict.keys())):
+        bar[0] = (i+1)/len(albums_dict)
         for track in tqdm(spotify.album_tracks(albums_dict[key])['items'], position=1, leave=False):
             id = track['id']
             tracks_dict[id] = {}
@@ -52,7 +53,7 @@ def run_script(input_name):
             for parameter in parameters:
                 tracks_dict[id][parameter] = track_features[parameter]
         progress = (i+1)/len(albums_dict) * 100 # update progress
-
+    bar[0] = 0
 
     df = pd.DataFrame.from_dict(tracks_dict, orient='index')
     data0 = df.to_json(orient='columns')
