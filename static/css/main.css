@@ -10,6 +10,10 @@ body {
 	color: #000;
 }
 
+.items {
+	margin: 0 0px 0 20px;
+}
+
 * {
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-font-smoothing: antialiased;
@@ -231,6 +235,54 @@ span {
 	line-height: 16px;
 	text-transform: uppercase;
 
+
+}
+
+.info_title {
+	position: relative;
+	display: block;
+	width: auto;
+	font-family: 'gt_america';
+	font-size: 16px;
+	line-height: 16px;
+	text-transform: uppercase;
+	padding-top: 20px;
+}
+
+.page_intro {
+	position: relative;
+	display: flex;
+	align-items: center;
+	display: -webkit-flex;
+	-webkit-align-items: center;
+	justify-content: center;
+	-webkit-justify-content: center;
+	width: 100%;
+	height: auto;
+	min-height: 100vh;
+	text-align: left;
+	overflow: hidden;
+}
+
+.page_intro_inner {
+	position: relative;
+	display: block;
+	width: 100%;
+	max-width: 780px;
+	padding: 30px;
+	margin: 0 auto;
+}
+
+.work_description {
+	position: relative;
+	display: block;
+	width: auto;
+	height: auto;
+	font-family: 'EB Garamond', sans-serif;
+	font-size: 22px;
+	line-height: 28px;
+	overflow: hidden;
+	margin-top: -10px;
 }
 
 .instructions_wrapper {

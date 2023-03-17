@@ -16,6 +16,7 @@ from spotipy.oauth2 import SpotifyClientCredentials
 
 from tqdm import tqdm
 
+import credentials
 from modules.recommender import create_dataset, create_model
 from modules.acoustic import input_to_prediction, name_to_url, url_to_melspec, preprocess_mel, mel_to_prediction
 from modules.dashboard import run_script
@@ -45,6 +46,10 @@ bar2 = [0]
 @app.route("/get_progress2")
 def get_progress2():
     return jsonify(progress = bar2)
+
+@app.route("/info", methods=['POST', 'GET'])
+def info():
+    return render_template("info.html")
 
 @app.route('/', methods=['GET','POST'])
 def index():
@@ -147,7 +152,6 @@ def classifier():
     model = tf.keras.models.load_model('model')
     summary = model.summary()
     url = name_to_url(input_name)[0]
-    print(url)
     mel, width = url_to_melspec(url, 128)
     mel_ = preprocess_mel(mel)
     prediction = mel_to_prediction(mel_)
@@ -232,5 +236,5 @@ def acoustic():
     else:
         return render_template('acoustic.html')
   
-if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
+if __name__ == '__main__':
+    app.run(threaded=True)

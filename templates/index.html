@@ -10,17 +10,23 @@
     <button id="generateDivsBtn">Change artist</button>
   </div> -->
 </div>
+<div class="page_intro">
+  <div class="page_intro_inner">
+<div class="items">
 <div class="dashboards_section" , id="dashboards">
   <div class="work_item">
     <div class="work_item_inner medium-homepages-link">
       <div class="work_title text_ani_wrap">
         <div class="stagger_body">
-          <p>Dashboards</p>
+          <p>Dashboard</p>
           <form method="post" id="todo-form" name="submit1">
             <!-- <label for="todo-form">Dashboards</label><br/> -->
             <p class="description">Discover in-depth insights across all radiohead albums.</p>
             <p class="description">Expand your analysis to other artists for a broader perspective.</p>
+            <p class="description">The size of the bubble represents how energetic the song is and the color how uplifting is the general mood.</p>
+            <label class="description" for='todo'>What is your favorite artist?  </label>
             <input type="text" name="todo" id="todo"/>
+            
             <button type="submit" value="Submit1" id="submit1">search</button>
           </form>
         </div>
@@ -43,7 +49,7 @@
       <div class="work_title text_ani_wrap">
         <div class="stagger_body">
           <p>Recommender</p>
-          <p class="description">Check your favorite tracks and get recommendations.</p>
+          <p class="description">Select your favorite tracks and get recommendations.</p>
           <p class="description">To change this list, select another artist in the previous section.</p>
           <p></p>
           <!-- <p class="description">We're using TensorFlow Recommenders.</p> -->
@@ -70,8 +76,8 @@
         <div class="stagger_body">
           <p>Fine-tuned GPT-3</p>
           <p class="description">Type anything and see what happens.</p>
-          <p class="description">I've used The Strokes' lyrics to fine tune the GPT3 Model</p>
-          <p class="description">So you can have a little nonsense Chat with Julian Casablancas</p>
+          <p class="description">I've used The Strokes' lyrics to fine tune the GPT-3 Model,</p>
+          <p class="description">So you can have a poetic chat with Julian Casablancas, the band's lyricist.</p>
           <p></p>
           <form id ='submit3'>
             <!-- <label for="input3">Composer:</label><br /> -->
@@ -79,7 +85,7 @@
 
                 <p id="partial_log"></p>
                 <p id="words"></p>                
-                  <label for='teste'>Teste</label>
+                  <label for='teste'>Don't be shy!  </label>
                   <input type='text' id='input3' name='input3'>
                 <input type="submit" value="Submit">
                 </form>
@@ -98,7 +104,7 @@
         <div class="stagger_body">
           <p>Convolutional Neural Network</p>
           <p class="description">Prompt the name of any song.</p>
-          <p class="description">The model will guess if the song is acoustic and print it's melspectogram</p>
+          <p class="description">The model will guess if the song is acoustic and print it's melspectogram.</p>
           <br>
           <p class="description"></p>
             <!-- <label for="input4">Melspec:</label><br /> -->
@@ -117,6 +123,12 @@
 
               <br>
               <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+
               <div id="neuralPrediction"></div>
               <br><br>
               <div id="melSpectogram"></div>
@@ -131,5 +143,7 @@
     </div>
   </div>
 </div>
+</div>
+</div></div></div>
 
 {% endblock %}

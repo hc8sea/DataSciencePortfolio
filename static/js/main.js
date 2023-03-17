@@ -235,6 +235,35 @@ window.addEventListener("pageshow", function () {
     });
   });
 
+var tl_transition01 = gsap.timeline({
+    paused: true,
+    overwrite: true
+  });
+  tl_transition01
+    .to("html", 0.5, {
+      autoAlpha: 0,
+      ease: Power2.easeInOut
+    });
+  
+  tl_transition01.timeScale(0.5);
+  
+
+var info_link = document.querySelector('.info-link');
+info_link.addEventListener('click', function() {
+
+	event.stopPropagation();
+
+	tl_transition01.play();
+
+	setTimeout(function() {
+		window.location.href = '/info';
+	}, 1000);
+
+
+
+
+});
+
   [...document.querySelectorAll(".work_item")].forEach(function (item) {
     var this_inner = item.querySelector(".work_item_inner");
 
