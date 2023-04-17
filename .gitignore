@@ -1,4 +1,6 @@
 credentials.py
+Dockerfile_folder/
+venv_old/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
