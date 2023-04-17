@@ -22,15 +22,7 @@ from modules.acoustic import input_to_prediction, name_to_url, url_to_melspec, p
 from modules.dashboard import run_script
 top_tracks = []
 
-
-
 spotify = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials())
-
-#TODO style buttons
-#TODO pbar for everyone
-#TODO 
-#TODO
-#TODO
 
 
 app = Flask(__name__)

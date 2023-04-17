@@ -1,5 +1,3 @@
-
-
 function createForm() {}
 
 // function destroyForm() {
