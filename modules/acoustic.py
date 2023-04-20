@@ -2,7 +2,7 @@ import requests
 import librosa
 from tqdm import tqdm
 import tensorflow as tf
-import credentials
+# import credentials
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import numpy as np

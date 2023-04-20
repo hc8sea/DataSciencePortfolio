@@ -14,7 +14,7 @@ from tqdm import tqdm
 from spotipy.oauth2 import SpotifyClientCredentials
 
 
-import credentials
+# import credentials
 
 top_tracks = []
 full_log = []

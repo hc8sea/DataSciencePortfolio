@@ -16,7 +16,7 @@ from spotipy.oauth2 import SpotifyClientCredentials
 
 from tqdm import tqdm
 
-import credentials
+# import credentials
 from modules.recommender import create_dataset, create_model
 from modules.acoustic import input_to_prediction, name_to_url, url_to_melspec, preprocess_mel, mel_to_prediction
 from modules.dashboard import run_script

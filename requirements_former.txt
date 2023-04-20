@@ -1,0 +1,15 @@
+Flask==2.1.0
+spotipy
+openai
+opencv-python-headless
+pandas
+plotly
+matplotlib
+tensorflow
+tqdm
+tensorflow-recommenders
+librosa
+gunicorn==20.1.0
+google-cloud-aiplatform==1.19.1
+ffmpeg
+pydub
